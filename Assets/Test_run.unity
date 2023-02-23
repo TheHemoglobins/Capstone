@@ -39,7 +39,11 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.18271789, g: 0.22574729, b: 0.2915241, a: 1}
+>>>>>>> main
 =======
   m_IndirectSpecularColor: {r: 0.18271789, g: 0.22574729, b: 0.2915241, a: 1}
 >>>>>>> main
@@ -2556,6 +2560,9 @@ Transform:
   - {fileID: 630836109}
   - {fileID: 1298458981}
   - {fileID: 1110367855}
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
   m_Father: {fileID: 0}
   m_RootOrder: 6
