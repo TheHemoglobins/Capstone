@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+    public Camera cam;
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -16,10 +16,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumpHeight = 1.0f;
 
+    [SerializeField]
+    private float speedH;
+    [SerializeField]
+    private float speedV;
+
+    private float yaw = 0.0f;
+    private float pitch = 0.0f;
+
     private void Start()
     {
         controller = gameObject.AddComponent<CharacterController>();
         inputManager = InputManager.Instance;
+        cam = Camera.main;
 
     }
 
@@ -38,14 +47,18 @@ public class PlayerController : MonoBehaviour
 
         if (move != Vector3.zero)
         {
-            gameObject.transform.forward = move;
+            Camera.main.transform.forward = move;
         }
 
         if (inputManager.PlayerJumpedThisFrame() && groundedPlayer) {
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
 
+        yaw += speedH * inputManager.GetMouseDelta().x;
+        pitch -= speedV * inputManager.GetMouseDelta().y;
+
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+    
     }
 }
