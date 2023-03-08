@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class CinemachinePOV : CinemachineExtension
+public class CinemachinePOV: CinemachineExtension
 {
 
     [SerializeField]
     private float clampAngle = 80f;
     [SerializeField]
-    private float horizontalSpeed = 5f;
+    private float horizontalSpeed = 10f;
     [SerializeField]
-    private float verticalSpeed = 5f;
+    private float verticalSpeed = 10f;
 
     private InputManager inputManager;
     private Vector3 startingRotation;
