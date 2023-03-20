@@ -334,7 +334,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061050022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 49.1}
+  m_LocalPosition: {x: 0, y: 0, z: -2.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -343,7 +343,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -288.6, y: -201.8}
+  m_AnchoredPosition: {x: -345, y: -175}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1061050024
@@ -393,8 +393,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 1.5
+  m_fontSizeBase: 1.5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -429,7 +429,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 33.284286, y: 7.218155, z: 120.54744, w: 32.055702}
+  m_margin: {x: 33.284286, y: 7.1888733, z: 161.27753, w: 41.080658}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -524,11 +524,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3dac449047315114bb03b2a04e8154b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.98
+      value: 26.08
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3dac449047315114bb03b2a04e8154b5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.44
+      value: 29.54
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3dac449047315114bb03b2a04e8154b5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -564,7 +564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -2577548232221058511, guid: 3dac449047315114bb03b2a04e8154b5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 34.3
+      value: 36.74
       objectReference: {fileID: 0}
     - target: {fileID: -2577548232221058511, guid: 3dac449047315114bb03b2a04e8154b5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -605,11 +605,11 @@ PrefabInstance:
     - target: {fileID: 7202271454713460447, guid: 3dac449047315114bb03b2a04e8154b5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2151ee585e79eb34aad7c16deb762ae7, type: 2}
+      objectReference: {fileID: 2100000, guid: 69eb24da7d2f143428f34c19a6d8962f, type: 2}
     - target: {fileID: 7202271454713460447, guid: 3dac449047315114bb03b2a04e8154b5, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: f956f7b97bfd41744acb7f2bf5c9ba37, type: 2}
+      objectReference: {fileID: 2100000, guid: 15edb36d71495ed499e6d33a5112473e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dac449047315114bb03b2a04e8154b5, type: 3}
 --- !u!1 &2025107621
