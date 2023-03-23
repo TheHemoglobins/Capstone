@@ -3,7 +3,12 @@ guid: 1e3c507fc74788a4c80ab632a44d7a9c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Limestone
+    second: {fileID: 2100000, guid: 5e8ed97749e472a4c9123bc956cf671c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
