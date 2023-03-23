@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 
 
-//Struct detailing the rectangle for each hiddenWall
+//Class detailing the rectangle for each hiddenWall
 public class anchors{
     public Vector3 cornerR;
     public Vector3 cornerL;
@@ -36,8 +36,7 @@ public class anchors{
     }
 }
 
-public class FrameGeneratorScript : MonoBehaviour
-{
+public class FrameGeneratorScript : MonoBehaviour{
 
     public GameObject frameTemplate;
     public List<GameObject> frameList = new List<GameObject>();
@@ -57,17 +56,16 @@ public class FrameGeneratorScript : MonoBehaviour
     float distance;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        //Will we want the middle vector to be an input situation? Possibly a list or array
-        //What is a quaterion
-        //could we make it so that this loops through in following way:
-        //      hiddenWalls = array (make a hidden game object rectangle that is the size of a wall and skinny)
-        //      anchors = array (matches up to each game object above)
-        //      for i in length prefabframe{
-        //          new frame = instantiate(hiddenWalls[i], anchors[i], quaterions[i])
-        //          frameList.Add(newFrame)
-        //      }
+    void Start(){
+/*      Will we want the middle vector to be an input situation? Possibly a list or array
+        What is a quaterion
+        could we make it so that this loops through in following way:
+             hiddenWalls = array (make a hidden game object rectangle that is the size of a wall and skinny)
+             anchors = array (matches up to each game object above)
+             for i in length prefabframe{
+                 new frame = instantiate(hiddenWalls[i], anchors[i], quaterions[i])
+                 frameList.Add(newFrame)
+             } */
 
         //Grabs the bottom right corner and top left corner of each wall in hiddenWalls
         foreach (GameObject wall in hiddenWalls){
@@ -85,8 +83,7 @@ public class FrameGeneratorScript : MonoBehaviour
         }
     }
 
-    private Vector3 generateFramePos(Vector3 anchor)
-    {
+    private Vector3 generateFramePos(Vector3 anchor){
         //Create a random position withing the anchor's range
         return randomSpawPos = new Vetor3(
             Random.Range(anchor.cornerR.x, anchor.cornerL.x),
@@ -96,8 +93,12 @@ public class FrameGeneratorScript : MonoBehaviour
     }
 
     //getRotation for seeing if the frame is in the correct rotation, can also be used with walls
-    private getRotation(GameObject frame){
-        return frame.eulerAngles.x = frame.eulerAngles.x <= 180f ?? frame.eulerAngles.x : frame.eulerAngles.x -360f; 
+    //one singular return is a float 
+    private Vector3 Vector3Int getRotation(GameObject frame){
+        frame.eulerAngles.x = frame.eulerAngles.x <= 180f ?? frame.eulerAngles.x : frame.eulerAngles.x -360f;
+        frame.eulerAngles.y = frame.eulerAngles.y <= 180f ?? frame.eulerAngles.y : frame.eulerAngles.y -360f; 
+        frame.eulerAngles.z = frame.eulerAngles.z <= 180f ?? frame.eulerAngles.z : frame.eulerAngles.z -360f; 
+        return Vector3(frame.eulerAngles.x, frame.eulerAngles.y, frame.eulerAngler.z); 
     }
 
         //we will be redoing this in a less confusing way but good start
