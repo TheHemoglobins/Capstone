@@ -83,6 +83,14 @@ public class FrameGeneratorScript : MonoBehaviour{
         }
     }
 
+    //getRotation for seeing if the frame is in the correct rotation, can also be used with walls
+    private Vector3 getRotation(GameObject frame){
+        frame.eulerAngles.x = frame.eulerAngles.x <= 180f ?? frame.eulerAngles.x : frame.eulerAngles.x -360f;
+        frame.eulerAngles.y = frame.eulerAngles.y <= 180f ?? frame.eulerAngles.y : frame.eulerAngles.y -360f; 
+        frame.eulerAngles.z = frame.eulerAngles.z <= 180f ?? frame.eulerAngles.z : frame.eulerAngles.z -360f; 
+        return Vector3(frame.eulerAngles.x, frame.eulerAngles.y, frame.eulerAngler.z); 
+    }
+
     private Vector3 generateFramePos(Vector3 anchor){
         //Create a random position withing the anchor's range
         return randomSpawPos = new Vetor3(
@@ -91,16 +99,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             wall.transform.position.y
         )
     }
-
-    //getRotation for seeing if the frame is in the correct rotation, can also be used with walls
-    //one singular return is a float 
-    private Vector3 Vector3Int getRotation(GameObject frame){
-        frame.eulerAngles.x = frame.eulerAngles.x <= 180f ?? frame.eulerAngles.x : frame.eulerAngles.x -360f;
-        frame.eulerAngles.y = frame.eulerAngles.y <= 180f ?? frame.eulerAngles.y : frame.eulerAngles.y -360f; 
-        frame.eulerAngles.z = frame.eulerAngles.z <= 180f ?? frame.eulerAngles.z : frame.eulerAngles.z -360f; 
-        return Vector3(frame.eulerAngles.x, frame.eulerAngles.y, frame.eulerAngler.z); 
-    }
-
+}
         //we will be redoing this in a less confusing way but good start
         //get rid of frameList.Count
         /* for (int i = 0; i < frameList.Count && frameList.Count != numRunTry; i++){
@@ -149,4 +148,3 @@ public class FrameGeneratorScript : MonoBehaviour{
 
     //add more private functions to make this legible code. Bc currently this is a bit of a yikes.
 
-}
