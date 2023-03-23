@@ -85,7 +85,7 @@ public class FrameGeneratorScript : MonoBehaviour
         }
     }
 
-    Vector3 generateFramePos(Vector3 anchor)
+    private Vector3 generateFramePos(Vector3 anchor)
     {
         //Create a random position withing the anchor's range
         return randomSpawPos = new Vetor3(
@@ -93,6 +93,11 @@ public class FrameGeneratorScript : MonoBehaviour
             Random.Range(anchor.cornerR.z), Random.Range(anchor.cornerL.z),
             wall.transform.position.y
         )
+    }
+
+    //getRotation for seeing if the frame is in the correct rotation, can also be used with walls
+    private getRotation(GameObject frame){
+        return frame.eulerAngles.x = frame.eulerAngles.x <= 180f ?? frame.eulerAngles.x : frame.eulerAngles.x -360f; 
     }
 
         //we will be redoing this in a less confusing way but good start
