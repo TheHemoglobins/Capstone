@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Avodire
-    second: {fileID: 670224309865224971, guid: 11cd62256b1d470f922b2c8e6446cc77, type: 3}
+    second: {fileID: 2100000, guid: 84f36545290558b4999deaf40861d198, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
