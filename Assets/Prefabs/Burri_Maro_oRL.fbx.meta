@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Burri_Maro_oRL_mtl_1
-    second: {fileID: 2100000, guid: 6e8442dd275001c4f9d167e8d1b8c962, type: 2}
+    second: {fileID: 2100000, guid: 84f36545290558b4999deaf40861d198, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Burri_Maro_oRL_mtl_2
-    second: {fileID: 2100000, guid: ebce2ab4039f332449bc802002d88e5c, type: 2}
+    second: {fileID: 2100000, guid: 84f36545290558b4999deaf40861d198, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Burri_Maro_oRL_mtl_3
-    second: {fileID: 2100000, guid: a84970925e3b5d54dbfd56fbdf608064, type: 2}
+    second: {fileID: 2100000, guid: 261fc6ba388fdea42b200193b2187175, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Burri_Maro_oRL_mtl_4
-    second: {fileID: 2100000, guid: f4caa11616ecb9041b459a020c575a12, type: 2}
+    second: {fileID: 2100000, guid: 261fc6ba388fdea42b200193b2187175, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

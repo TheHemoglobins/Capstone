@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2a3f8090f2c9a654b9b4cb36280e1a65
-timeCreated: 1491827561
+guid: faf06b3544156e7498367ca2c9e95040
+timeCreated: 1491827583
 licenseType: Store
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: candle
+    4300000: cupboard.001
   materials:
     importMaterials: 1
     materialName: 0
