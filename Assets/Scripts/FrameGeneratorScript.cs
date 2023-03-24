@@ -8,12 +8,9 @@ using System.Linq;
 public class Anchor{
     public Vector3 cornerR;
     public Vector3 cornerL;
-    public Vector3 corners(Vector3 cornerR, Vector3 cornerL){
-        cornerR = cornerR; 
-        cornerL = cornerL
-    }
+    public anchorCorners;
 
-    public Vector3 getCorner(String corner, GameObject wall){
+    public Vector3 getOneCorner(String corner, GameObject wall){
         var x, z;
         var y = wall.Transform.position.y;
         switch (corner){
@@ -32,6 +29,15 @@ public class Anchor{
                 z = wall.renderer.bound.max.z;
                 return Vector3(x, y, z);
                 break;
+        }
+    }
+
+    public getAnchor(Vector3 corner1, Vector3 corner2)
+    {
+        return new Anchor()
+        {
+            cornerR: corner1,
+            cornerL: corner2
         }
     }
 }
