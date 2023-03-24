@@ -5,9 +5,9 @@ using System.Linq;
 
 
 //Class detailing the rectangle for each hiddenWall - move to its own file
-public class Anchor : Vector3 {
-    public Vector3 cornerR { get; set; };
-    public Vector3 cornerL { get; set; };
+public class Anchor{
+    public Vector3 cornerR { get; set; }
+    public Vector3 cornerL { get; set; }
 
     public Anchor(Vector3 rightCorner, Vector3 leftCorner)
     {
@@ -30,49 +30,48 @@ public class FrameGeneratorScript : MonoBehaviour{
 
     //Input for hidden gameObjects next to walls
     public Transform[] hiddenWalls;
-    private List<Anchor> anchorList;
+    private List<Anchor> anchorList = new List<Anchor>();
     private Anchor wallAnchor;
 
-    GameObject newFrame;
     float distance;
 
     // Start is called before the first frame update
     void Start(){
 
         //Grabs the bottom right corner and top left corner of each wall in hiddenWalls
-        foreach (GameObject wall in hiddenWalls)
+        foreach (Transform wall in hiddenWalls)
         {
             this.wallAnchor = getWallAnchor(wall);
             this.anchorList.Add(this.wallAnchor);
         };
 
         //Creates a new frame for each hiddenWall 
-        for (var i = 0; i < hiddenWalls.Count(); i++){
+        for (var i = 0; i < hiddenWalls.Count() && frameList.Count() != numRunTry; i++ ){
             //Instantiate parameters = (Template, position, rotation)
             //Snapping should be taken care of in the actual generation of the frame position
             var wall = hiddenWalls[i];
             var wallRotation = getRotation(wall);
 
-            var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wallRotation), Quaternion.identity);
+            var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wallRotation, wall.transform.position.y), Quaternion.identity);
             frameList.Add(newFrame);
 
             //Check distances between frames
-            var xPositions = newFrame[i].transform.position.x - newFrame[i - 1].transform.position.x;
-            var zPositions = newFrame[i].transform.position.z - newFrame[i - 1].transform.position.z;
+            //var xPositions = this.frameList[i + 1].transform.position.x - this.frameList[i].transform.position.x;
+            //var zPositions = this.frameList[i + 1].transform.position.z - this.frameList[i].transform.position.z;
 
-            distance = Mathf.Sqrt( Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
+            //this.distance = Mathf.Sqrt( Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
 
-            if (distance > distanceBetween){
+            /* if (this.distance > this.distanceBetween){
                // move ith frame away from i-1th frame
                // get vector position of i-1th frame
                // change ith frame position to Vector3(distance between x or z, y, other variable not changing)
                 break;
-            };
+            }; */
         };
     }
 
     //getRotation for seeing if the frame is in the correct rotation, can also be used with walls
-    public Vector3 getRotation(GameObject frame){
+    public Vector3 getRotation(Transform frame){
         var rotation = frame.transform.eulerAngles;
 
         rotation.x = rotation.x <= 180f ? rotation.x : rotation.x -360f;
@@ -83,19 +82,19 @@ public class FrameGeneratorScript : MonoBehaviour{
     }
 
     //Create a random position within the anchor's range should take care of snapping
-    public Vector3 generateFramePos(Anchor anchor, Vector3 wallRotation){
+    public Vector3 generateFramePos(Anchor anchor, Vector3 wallRotation, float wall){
         var randomPosition = new Vector3(
             Random.Range(anchor.cornerR.x, anchor.cornerL.x),
-            Random.Range(anchor.cornerR.z, anchor.cornerL.z),
-            wall.transform.position.y
+            wall,
+            Random.Range(anchor.cornerR.z, anchor.cornerL.z)
         );
 
-        randomPosition.transform.eulerAngles = wallRotation;
+        //transform.eulerAngles = wallRotation;
 
         return randomPosition;
     }
 
-    public Anchor getWallAnchor(GameObject wall)
+    public Anchor getWallAnchor(Transform wall)
     {
         float rightX, rightZ, leftX, leftZ;
         float y = wall!.transform.position.y;
@@ -106,14 +105,14 @@ public class FrameGeneratorScript : MonoBehaviour{
         Anchor anchorWithCorners;
 
         // need bottom right
-        rightX = wall!.GetComponent<Renderer>().bounds.max.x;
-        rightZ = wall!.GetComponent<Renderer>().bounds.min.z;
+        rightX = wall.GetComponent<Renderer>().bounds.max.x;
+        rightZ = wall.GetComponent<Renderer>().bounds.min.z;
 
         bottomRightCorner = new Vector3(rightX, y, rightZ);
 
         //need top left 
-        leftX = wall!.GetComponent<Renderer>().bounds.min.x;
-        leftZ = wall!.GetComponent<Renderer>().bounds.max.z;
+        leftX = wall.GetComponent<Renderer>().bounds.min.x;
+        leftZ = wall.GetComponent<Renderer>().bounds.max.z;
 
         topLeftCorner = new Vector3(leftX, y, leftZ);
 
