@@ -57,7 +57,7 @@ public class FrameGeneratorScript : MonoBehaviour{
     public Transform[] hiddenWalls;
     private List<Anchor[]> anchorList;
 
-    private Anchor wallAnchor = new Anchor();
+    public Anchor wallAnchor = new Anchor();
 
     GameObject newFrame;
     float distance;
@@ -71,7 +71,6 @@ public class FrameGeneratorScript : MonoBehaviour{
             Anchor[] anchorArray;
             anchorArray.Append(wallAnchor.getCorner("right", wall)).ToArray();
             anchorArray.Append(wallAnchor.getCorner("left", wall)).ToArray();
-
             anchorList.Add(anchorArray);
         };
 
