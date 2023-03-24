@@ -10,25 +10,28 @@ public class Anchor{
     public Vector3 cornerL;
     public anchorCorners;
 
-    public Vector3 getOneCorner(String corner, GameObject wall){
-        var x, z;
-        var y = wall.Transform.position.y;
+    public Vector3 getCorner(string corner, GameObject wall){
+        float x;
+        float z;
+        var y = wall!.transform.position.y;
         switch (corner){
-            case corner == 'right':
+            case "right":
                 //dummy variables until testing using this link as reference: 
                 //https://stackoverflow.com/questions/22605683/unity3d-how-to-determine-the-corners-of-a-gameobject-in-order-to-position-other
                 // Bottom right corner of the wall needed
-                x = wall.renderer.bound.max.x;
-                z = wall.renderer.bound.min.z;
-                return Vector3(x, y, z);
+                x = wall!.GetComponent<Renderer>().bounds.max.x;
+                z = wall!.GetComponent<Renderer>().bounds.min.z;
+                return new Vector3(x, y, z);
                 break;
-            case corner == 'left':
+            case "left":
                 //dummy variables until testing
                 //Top Left corner of the wall needed
-                x = wall.renderer.bound.min.x;
-                z = wall.renderer.bound.max.z;
-                return Vector3(x, y, z);
+                x = wall!.GetComponent<Renderer>().bounds.min.x;
+                z = wall!.GetComponent<Renderer>().bounds.max.z;
+                return new Vector3(x, y, z);
                 break;
+            default:
+                return new Vector3(0, 0, 0);
         }
     }
 
@@ -56,9 +59,9 @@ public class FrameGeneratorScript : MonoBehaviour{
 
     //Input for hidden gameObjects next to walls
     public Transform[] hiddenWalls;
-    private List<Anchor> anchorList;
+    private List<Anchor[]> anchorList;
 
-    private Anchor wallAnchor = new Anchor;
+    private Anchor wallAnchor = new Anchor();
 
     GameObject newFrame;
     float distance;
@@ -67,18 +70,20 @@ public class FrameGeneratorScript : MonoBehaviour{
     void Start(){
 
         //Grabs the bottom right corner and top left corner of each wall in hiddenWalls
-        foreach (GameObject wall in hiddenWalls){
-            anchorList.Add(wallAnchor(Anchor.getCorner('right', wall), Anchor.getCorner('left', wall)));
-        }
+        foreach (GameObject wall in hiddenWalls)
+        {
+            Anchor[] anchorArray = {wallAnchor.getCorner("right", wall), wallAnchor.getCorner("left", wall)};
+            anchorList.Add(anchorArray);
+        };
 
         //Creates a new frame for each hiddenWall 
-        for (i = 0; i < hiddenWalls.Count(); i++){
+        for (var i = 0; i < hiddenWalls.Count(); i++){
             //Instantiate parameters = (Template, position, rotation)
             //Snapping should be taken care of in the actual generation of the frame position
             var wall = hiddenWalls[i];
-            wallRotation = getRotation(wall);
+            var wallRotation = getRotation(wall);
 
-            newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wallRotation), Quaternion.identity);
+            var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wallRotation), Quaternion.identity);
             frameList.Add(newFrame);
 
             //Check distances between frames
@@ -97,25 +102,25 @@ public class FrameGeneratorScript : MonoBehaviour{
     }
 
     //getRotation for seeing if the frame is in the correct rotation, can also be used with walls
-    private Vector3 getRotation(GameObject frame){
-        rotation = frame.eulerAngles;
+    public Vector3 getRotation(GameObject frame){
+        var rotation = frame.transform.eulerAngles;
 
-        rotation.x = rotation.x <= 180f ?? rotation.x : rotation.x -360f;
-        rotation.y = rotation.y <= 180f ?? rotation.y : rotation.y -360f;
-        rotation.z = rotation.z <= 180f ?? rotation.z : rotation.z - 360f;
+        rotation.x = rotation.x <= 180f ? rotation.x : rotation.x -360f;
+        rotation.y = rotation.y <= 180f ? rotation.y : rotation.y -360f;
+        rotation.z = rotation.z <= 180f ? rotation.z : rotation.z - 360f;
 
-        return overallRotation = new Vector3(rotation.x, rotation.y, rotation.z); 
+        return (new Vector3(rotation.x, rotation.y, rotation.z)); 
     }
 
     //Create a random position within the anchor's range should take care of snapping
-    private Vector3 generateFramePos(Anchor anchor, Vector3 wallRotation){
+    public Vector3 generateFramePos(Anchor anchor, Vector3 wallRotation){
         var randomPosition = new Vector3(
             Random.Range(anchor.cornerR.x, anchor.cornerL.x),
-            Random.Range(anchor.cornerR.z), Random.Range(anchor.cornerL.z),
+            Random.Range(anchor.cornerR.z, anchor.cornerL.z),
             wall.transform.position.y
         );
 
-        randomPosition.Transform.eulerAngles = wallRotation;
+        randomPosition.transform.eulerAngles = wallRotation;
 
         return randomPosition;
     }
