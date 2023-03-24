@@ -8,40 +8,40 @@ using System.Linq;
 public class Anchor{
     public Vector3 cornerR;
     public Vector3 cornerL;
-    public anchorCorners;
 
-    public Vector3 getCorner(string corner, GameObject wall){
-        float x;
-        float z;
-        var y = wall!.transform.position.y;
-        switch (corner){
-            case "right":
-                //dummy variables until testing using this link as reference: 
-                //https://stackoverflow.com/questions/22605683/unity3d-how-to-determine-the-corners-of-a-gameobject-in-order-to-position-other
-                // Bottom right corner of the wall needed
-                x = wall!.GetComponent<Renderer>().bounds.max.x;
-                z = wall!.GetComponent<Renderer>().bounds.min.z;
-                return new Vector3(x, y, z);
-                break;
-            case "left":
-                //dummy variables until testing
-                //Top Left corner of the wall needed
-                x = wall!.GetComponent<Renderer>().bounds.min.x;
-                z = wall!.GetComponent<Renderer>().bounds.max.z;
-                return new Vector3(x, y, z);
-                break;
-            default:
-                return new Vector3(0, 0, 0);
-        }
+    public Anchor() {
+        this.cornerR = new Vector3();
+        this.cornerL = new Vector3();
     }
 
-    public getAnchor(Vector3 corner1, Vector3 corner2)
-    {
-        return new Anchor()
-        {
-            cornerR: corner1,
-            cornerL: corner2
-        }
+    public Anchor getAnchor(string corner, GameObject wall){
+        float rightX;
+        float rightZ;
+        float leftX;
+        float leftZ;
+        float y = wall!.transform.position.y;
+
+        Vector3 bottomRightCorner;
+        Vector3 topLeftCorner;
+
+
+        //dummy variables until testing using this link as reference: 
+        //https://stackoverflow.com/questions/22605683/unity3d-how-to-determine-the-corners-of-a-gameobject-in-order-to-position-other
+        // Bottom right corner of the wall needed
+        rightX = wall!.GetComponent<Renderer>().bounds.max.x;
+        rightZ = wall!.GetComponent<Renderer>().bounds.min.z;
+        bottomRightCorner = new Vector3(rightX, rightZ, y);
+
+        //dummy variables until testing
+        //Top Left corner of the wall needed
+        leftX = wall!.GetComponent<Renderer>().bounds.min.x;
+        leftZ = wall!.GetComponent<Renderer>().bounds.max.z;
+        topLeftCorner = new Vector3(leftX, leftZ, y);
+
+        return new Anchor{
+            cornerR: bottomRightCorner,
+            cornerL: topLeftCorner
+        };
     }
 }
 
@@ -61,7 +61,7 @@ public class FrameGeneratorScript : MonoBehaviour{
     public Transform[] hiddenWalls;
     private List<Anchor[]> anchorList;
 
-    private Anchor wallAnchor = new Anchor();
+    public Anchor wallAnchor = new Anchor();
 
     GameObject newFrame;
     float distance;
@@ -72,7 +72,9 @@ public class FrameGeneratorScript : MonoBehaviour{
         //Grabs the bottom right corner and top left corner of each wall in hiddenWalls
         foreach (GameObject wall in hiddenWalls)
         {
-            Anchor[] anchorArray = {wallAnchor.getCorner("right", wall), wallAnchor.getCorner("left", wall)};
+            Anchor[] anchorArray;
+            anchorArray.Append(wallAnchor.getCorner("right", wall)).ToArray();
+            anchorArray.Append(wallAnchor.getCorner("left", wall)).ToArray();
             anchorList.Add(anchorArray);
         };
 
@@ -97,8 +99,8 @@ public class FrameGeneratorScript : MonoBehaviour{
                // get vector position of i-1th frame
                // change ith frame position to Vector3(distance between x or z, y, other variable not changing)
                 break;
-            }
-        }
+            };
+        };
     }
 
     //getRotation for seeing if the frame is in the correct rotation, can also be used with walls
