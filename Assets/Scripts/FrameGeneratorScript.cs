@@ -6,38 +6,13 @@ using System.Linq;
 
 //Class detailing the rectangle for each hiddenWall - move to its own file
 public class Anchor {
-    public Vector3 cornerR;
-    public Vector3 cornerL;
+    public Vector3 cornerR { get; set; };
+    public Vector3 cornerL { get; set; };
 
     public Anchor(Vector3 rightCorner, Vector3 leftCorner)
     {
         this.cornerR = rightCorner;
         this.cornerL = leftCorner;
-    }
-
-    public Anchor getAnchor(GameObject wall){
-        var rightX;
-        var rightZ;
-        var leftX;
-        var leftZ;
-        var y = wall!.transform.position.y;
-        var bottomRightCorner;
-        var topLeftCorner;
-        var anchorWithCorners;
-
-        // need bottom right
-        rightX = wall!.GetComponent<Renderer>().bounds.max.x;
-        rightZ = wall!.GetComponent<Renderer>().bounds.min.z;
-        bottomRightCorner = new Vector3(rightX, y, rightZ);
-
-        //need top left 
-        leftX = wall!.GetComponent<Renderer>().bounds.min.x;
-        leftZ = wall!.GetComponent<Renderer>().bounds.max.z;
-        topLeftCorner = new Vector3(leftX, y, leftZ);
-
-        anchorWithCorners = new Anchor(bottomRightCorner, topLeftCorner);
-
-        return anchorWithCorners;
     }
 }
 
@@ -55,9 +30,8 @@ public class FrameGeneratorScript : MonoBehaviour{
 
     //Input for hidden gameObjects next to walls
     public Transform[] hiddenWalls;
-    private List<Anchor[]> anchorList;
-
-    public Anchor wallAnchor = new Anchor();
+    private List<Anchor> anchorList;
+    private Anchor wallAnchor;
 
     GameObject newFrame;
     float distance;
@@ -68,10 +42,8 @@ public class FrameGeneratorScript : MonoBehaviour{
         //Grabs the bottom right corner and top left corner of each wall in hiddenWalls
         foreach (GameObject wall in hiddenWalls)
         {
-            Anchor[] anchorArray;
-            anchorArray.Append(wallAnchor.getCorner("right", wall)).ToArray();
-            anchorArray.Append(wallAnchor.getCorner("left", wall)).ToArray();
-            anchorList.Add(anchorArray);
+            this.wallAnchor = getWallAnchor(wall);
+            this.anchorList.Add(this.wallAnchor);
         };
 
         //Creates a new frame for each hiddenWall 
@@ -121,6 +93,33 @@ public class FrameGeneratorScript : MonoBehaviour{
         randomPosition.transform.eulerAngles = wallRotation;
 
         return randomPosition;
+    }
+
+    public Anchor getWallAnchor(GameObject wall)
+    {
+        float rightX, rightZ, leftX, leftZ;
+        float y = wall!.transform.position.y;
+
+        Vector3 bottomRightCorner;
+        Vector3 topLeftCorner;
+
+        Anchor anchorWithCorners;
+
+        // need bottom right
+        rightX = wall!.GetComponent<Renderer>().bounds.max.x;
+        rightZ = wall!.GetComponent<Renderer>().bounds.min.z;
+
+        bottomRightCorner = new Vector3(rightX, y, rightZ);
+
+        //need top left 
+        leftX = wall!.GetComponent<Renderer>().bounds.min.x;
+        leftZ = wall!.GetComponent<Renderer>().bounds.max.z;
+
+        topLeftCorner = new Vector3(leftX, y, leftZ);
+
+        anchorWithCorners = new Anchor(bottomRightCorner, topLeftCorner);
+
+        return anchorWithCorners;
     }
 }
 
