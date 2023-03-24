@@ -5,7 +5,7 @@ using System.Linq;
 
 
 //Class detailing the rectangle for each hiddenWall - move to its own file
-public class Anchor {
+public class Anchor : Vector3 {
     public Vector3 cornerR { get; set; };
     public Vector3 cornerL { get; set; };
 
