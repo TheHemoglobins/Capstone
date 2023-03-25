@@ -25,8 +25,6 @@ public class FrameGeneratorScript : MonoBehaviour{
     public int numRunTry;
     [SerializeField]
     public int distanceBetween;
-    [SerializeField]
-    public float SnapDistance = 2f;
 
     //Input for hidden gameObjects next to walls
     public Transform[] hiddenWalls;
@@ -54,22 +52,36 @@ public class FrameGeneratorScript : MonoBehaviour{
             for (var j = 0; j < numRunTry; j++){
                 var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wall.transform.position.y), Quaternion.identity);
                 newFrame.transform.eulerAngles = getRotation(wall);
-                frameList.Add(newFrame);
+                this.frameList.Add(newFrame);
             };
 
-            //Check distances between frames
-            //var xPositions = this.frameList[i + 1].transform.position.x - this.frameList[i].transform.position.x;
-            //var zPositions = this.frameList[i + 1].transform.position.z - this.frameList[i].transform.position.z;
-
-            //this.distance = Mathf.Sqrt( Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
-
-            /* if (this.distance > this.distanceBetween){
-               // move ith frame away from i-1th frame
-               // get vector position of i-1th frame
-               // change ith frame position to Vector3(distance between x or z, y, other variable not changing)
-                break;
-            }; */
         };
+        fixFrameDistance(this.frameList, this.distanceBetween, this.anchorList);
+    }
+
+    public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList){
+        var rightFrameCorner = anchorList[0].cornerR.x;
+        var leftFrameCorner = anchorList[0].cornerL.x;
+
+        var frameDistance = Mathf.Sqrt(Mathf.Pow(rightFrameCorner, 2) + Mathf.Pow(leftFrameCorner, 2));
+
+        for(var i = 1; i < frameList.Count(); i++){
+
+            var currentFrame = frameList[i].transform.position;
+            var lastFrame = frameList[i - 1].transform.position;
+            //Check distances between frames
+            var xPositions =  currentFrame.x - lastFrame.x;
+            var zPositions = currentFrame.z = lastFrame.z;
+
+            var distance = Mathf.Sqrt(Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
+
+            var pos = frameList[i].transform.position;
+
+            if (distance < distanceBetween){
+                currentFrame.x = currentFrame.x + distanceBetween + frameDistance;
+                currentFrame.z = currentFrame.z + distanceBetween + frameDistance;
+            }
+        }
     }
 
     //getRotation for seeing if the frame is in the correct rotation, can also be used with walls
