@@ -529,14 +529,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1264997f7d3f1d468e31d399ae91ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabFrame: {fileID: 693895568}
-  minGroundPos: {x: 73, y: 1, z: 62}
-  maxGroundPos: {x: 61, y: 1, z: 54}
+  frameTemplate: {fileID: 693895568}
   frameList: []
   numRunTry: 10
-  distanceBetween: 4
-  SnapDistance: 4
-  anchors:
+  distanceBetween: 2
+  SnapDistance: 1
+  hiddenWalls:
   - {fileID: 405099632}
   - {fileID: 470311975}
   - {fileID: 631269535}
