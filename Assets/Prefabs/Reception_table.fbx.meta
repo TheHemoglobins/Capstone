@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Chrome
-    second: {fileID: -876546973899608171, guid: 6ddb2d9b478ae854ba6e0a679bd77f36, type: 3}
+    second: {fileID: 2100000, guid: fd5793c2b2982d541a06c2303351d8eb, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
