@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -493,7 +493,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 693895568}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 66, y: 1.51, z: 62.158157}
+  m_LocalPosition: {x: 66, y: 1.51, z: 62.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -529,14 +529,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1264997f7d3f1d468e31d399ae91ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabFrame: {fileID: 693895568}
-  minGroundPos: {x: 73, y: 1, z: 62}
-  maxGroundPos: {x: 61, y: 1, z: 54}
+  frameTemplate: {fileID: 693895568}
   frameList: []
-  numRunTry: 10
-  distanceBetween: 4
-  SnapDistance: 4
-  anchors:
+  numRunTry: 5
+  distanceBetween: 2
+  hiddenWalls:
   - {fileID: 405099632}
   - {fileID: 470311975}
   - {fileID: 631269535}
