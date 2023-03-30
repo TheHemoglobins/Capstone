@@ -1,0 +1,4 @@
+ExampleElementCustomStyle {
+    --gradient-from: #231651;
+    --gradient-to: #846A6A;
+}
