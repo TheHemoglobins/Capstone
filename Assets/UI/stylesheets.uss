@@ -1,0 +1,36 @@
+:root {
+    --grayishPurple: rgb(162, 153, 158);
+    --white: rgb(238, 240, 242);
+    --blue: rgb(35, 22, 81);
+    --pink: rgb(132, 106, 106);
+    --gray: rgb(53, 59, 60);
+}
+
+.Canvas {
+    flex-grow: 1;
+    background-color: var(--white);
+    width: auto;
+    height: auto;
+    flex-direction: row;
+}
+
+.Gradient {
+    height: auto;
+    width: 92px;
+    background-color: var(--blue);
+    flex-shrink: 0;
+    align-items: stretch;
+    overflow: visible;
+}
+
+.FrontMatterColumn {
+    width: 324px;
+    flex-direction: column;
+}
+
+.UploadButton, .ExitButton {
+    -unity-font: url('project://database/Library/unity%20default%20resources?fileID=10102&guid=0000000000000000e000000000000000&type=0#Arial');
+    font-size: 32px;
+    color: var(--white);
+    background-color: var(--grayishPurple)
+}
