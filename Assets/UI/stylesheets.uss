@@ -34,3 +34,4 @@
     color: var(--white);
     background-color: var(--grayishPurple)
 }
+
