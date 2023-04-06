@@ -11,7 +11,9 @@ public class ButtonHandler : MonoBehaviour
     private VisualElement frame;
     private GroupBox column1;
     private GroupBox column2;
-    private Button button;
+    private GroupBox column3;
+    private Button uploadButton;
+    private Button exitButton;
     private Label label;
 
     private void Start() {
@@ -25,11 +27,15 @@ public class ButtonHandler : MonoBehaviour
  
         GetLabel(rootVisualElement);
       
-        this.button.RegisterCallback<ClickEvent>(ev => {
+        this.uploadButton.RegisterCallback<ClickEvent>(ev => {
             FileBrowser.ShowLoadDialog(
                 (newPhotoPaths) => {OnSuccess(newPhotoPaths, rootVisualElement);},
 				() => { Debug.Log( "Canceled" ); },
 				FileBrowser.PickMode.Files, true, null, null, "Select Files", "Select" );
+        });
+
+        this.exitButton.RegisterCallback<ClickEvent>(ev => {
+            rootVisualElement.style.display = DisplayStyle.None;
         });
     }
 
@@ -69,9 +75,12 @@ public class ButtonHandler : MonoBehaviour
 
         this.frame = root.Q<VisualElement>("Canvas");
         this.column1 = frame.Q<GroupBox>("FrontMatterColumn");
-        this.button = column1.Q<Button>("UploadButton");
+        this.uploadButton = column1.Q<Button>("UploadButton");
 
         this.column2 = frame.Q<GroupBox>("UploadedPhotosColumns");
+
+        this.column3 = frame.Q<GroupBox>("InstructionsColumn");
+        this.exitButton = column3.Q<Button>("ExitButton");
 
         Label label = new Label();
         label.AddToClassList("photoTitle");
