@@ -52,8 +52,6 @@ public class ButtonHandler : MonoBehaviour
         
         pagination.AddToClassList("pagination");
 
-        column2.Add(pagination);
-
         return pagination;
     }
 
@@ -84,7 +82,6 @@ public class ButtonHandler : MonoBehaviour
 
         Label label = new Label();
         label.AddToClassList("photoTitle");
-        column2.Add(label);
 
         return label as VisualElement;
     }
@@ -101,15 +98,16 @@ public class ButtonHandler : MonoBehaviour
             labelList.Add(label);
             SetUploadPhotoColumn(labelList[i], uploadedPhotoPaths[i]);
             if((i % 3) == 0){
-                //Pagination is being generated before the labels thus placing it as the first element
-                //unknown as to why this is being generated first
                 GeneratePagination(pagination, i);
             }
+            this.column2.Add(label);
         };
         VisualElement forwardArrow = new VisualElement();
         //USS is drawing the wrong background image probably because of fileID/guid issues
         forwardArrow.AddToClassList("forwardArrow");
         pagination.Add(forwardArrow);
+
+        this.column2.Add(pagination);
     }
 
     public void SetUploadPhotoColumn(VisualElement uploadLabel, string photoPath){
