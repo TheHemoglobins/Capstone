@@ -1,0 +1,70 @@
+:root {
+    --grayishPurple: rgb(162, 153, 158);
+    --white: rgb(238, 240, 242);
+    --blue: rgb(35, 22, 81);
+    --pink: rgb(132, 106, 106);
+    --gray: rgb(53, 59, 60);
+}
+
+.Canvas {
+    flex-grow: 1;
+    background-color: var(--white);
+    width: auto;
+    height: auto;
+    flex-direction: row;
+}
+
+.Gradient {
+    height: auto;
+    width: 92px;
+    background-color: var(--blue);
+    flex-shrink: 0;
+    align-items: stretch;
+    overflow: visible;
+}
+
+.FrontMatterColumn {
+    width: 324px;
+    flex-direction: column;
+}
+
+.UploadButton, .ExitButton {
+    -unity-font: url('project://database/Library/unity%20default%20resources?fileID=10102&guid=0000000000000000e000000000000000&type=0#Arial');
+    font-size: 32px;
+    color: var(--white);
+    background-color: var(--grayishPurple)
+}
+
+.photoTitle {
+    width: auto; 
+    height: auto; 
+    -unity-text-align: upper-center; 
+    font-size: 16px; 
+    align-items: center;
+}
+
+.pagination {
+    width: auto; 
+    height: 15px; 
+    margin-top: 14px; 
+    flex-shrink: 1; 
+    flex-grow: 1; 
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center; 
+    margin-left: 0;
+}
+
+.backArrow {
+    height: 51px; 
+    width: 82px; 
+    background-image: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=1169890249420208065&amp;guid=17014b190f4540f4ca29cbb734004868&amp;type=3#arrow-left@2x&apos;); 
+    -unity-background-image-tint-color: rgb(188, 188, 188);
+}
+
+.forwardArrow {
+    height: 51px;
+    width: 82px;
+    background-image: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=17014b190f4540f4ca29cbb734004868&amp;type=3#arrow-right@2x&apos;);
+    -unity-background-image-tint-color: rgb(188, 188, 188);
+}
