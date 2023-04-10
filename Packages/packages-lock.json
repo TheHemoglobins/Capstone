@@ -335,13 +335,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.yasirkula.simplefilebrowser": {
-      "version": "https://github.com/yasirkula/UnitySimpleFileBrowser.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "e6e06698b2a63bedd54254d87e83b297b0910670"
-    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
