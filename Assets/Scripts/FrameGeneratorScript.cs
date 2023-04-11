@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 
 //Class detailing the rectangle for each hiddenWall - move to its own file
@@ -22,34 +23,29 @@ public class FrameGeneratorScript : MonoBehaviour{
     public List<GameObject> frameList = new List<GameObject>();
 
     [SerializeField]
-    public int numRunTry;
-    [SerializeField]
     public int distanceBetween;
 
-    //Input for hidden gameObjects next to walls
     public Transform[] hiddenWalls;
     private List<Anchor> anchorList = new List<Anchor>();
     private Anchor wallAnchor;
 
     float distance;
 
-    // Start is called before the first frame update
-    void Start(){
+    public void Generate(string[] paths) {
 
-        //Grabs the bottom right corner and top left corner of each wall in hiddenWalls
         foreach (Transform wall in hiddenWalls)
         {
             this.wallAnchor = getWallAnchor(wall);
             this.anchorList.Add(this.wallAnchor);
         };
 
-        //Creates a new frame for each hiddenWall 
+        var numOfPhotos = hiddenWalls.Count() / paths.Length;
+        Debug.Log(numOfPhotos);
+
         for (var i = 0; i < hiddenWalls.Count(); i++){
-            //Instantiate parameters = (Template, position, rotation)
-            //Snapping should be taken care of in the actual generation of the frame position
             var wall = hiddenWalls[i];
 
-            for (var j = 0; j < numRunTry; j++){
+            for (var j = 0; j < numOfPhotos; j++){
                 var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wall.transform.position.y), Quaternion.identity);
                 newFrame.transform.eulerAngles = getRotation(wall);
                 this.frameList.Add(newFrame);
@@ -69,7 +65,7 @@ public class FrameGeneratorScript : MonoBehaviour{
 
             var currentFrame = frameList[i].transform.position;
             var lastFrame = frameList[i - 1].transform.position;
-            //Check distances between frames
+
             var xPositions =  currentFrame.x - lastFrame.x;
             var zPositions = currentFrame.z = lastFrame.z;
 
@@ -84,7 +80,6 @@ public class FrameGeneratorScript : MonoBehaviour{
         }
     }
 
-    //getRotation for seeing if the frame is in the correct rotation, can also be used with walls
     public Vector3 getRotation(Transform frame){
         var rotation = frame.transform.eulerAngles;
 
@@ -95,7 +90,6 @@ public class FrameGeneratorScript : MonoBehaviour{
         return (new Vector3(rotation.x, rotation.y, rotation.z)); 
     }
 
-    //Create a random position within the anchor's range should take care of snapping
     public Vector3 generateFramePos(Anchor anchor, float wall){
         return new Vector3(
             Random.Range(anchor.cornerR.x, anchor.cornerL.x),
@@ -131,52 +125,3 @@ public class FrameGeneratorScript : MonoBehaviour{
         return anchorWithCorners;
     }
 }
-
-//I dont think we will need anything under this
-//======================================================================
-
-        //we will be redoing this in a less confusing way but good start
-        //get rid of frameList.Count
-        /* for (int i = 0; i < frameList.Count && frameList.Count != numRunTry; i++){
-            Vector3 newFrame[i-1] = new Vector3(
-                //possibly use this instead of the prefab frames (or maybe with) to squash to walls
-                Random.Range(minGroundPos.x, maxGroundPos.x),
-                1,
-                Random.Range(minGroundPos.z, maxGroundPos.z)
-            );
-
-            //break these into two different for loops, have an array or list of randomSpawnPositions that are in same order as frames.
-            foreach (GameObject frame in frameList)
-            {
-                distance = Mathf.Sqrt( Mathf.Pow( (frame.transform.position.x - newFrame[i-1].x), 2) + Mathf.Pow( (frame.transform.position.z - newFrame[i-1].z), 2));
-
-                if (distance < distanceBetween){
-                    break;
-                }
-
-                else if(distance >= distanceBetween && frame == frameList.Last()){
-                    newFrame = Instantiate(frameTemplate, newFrame[i-1], Quaternion.identity);
-                    frameList.Add(newFrame);
-
-                    break;
-                }
-            }
-        }
-    }
-
-    private void SnapOn(GameObject frame, Vector3 spawnPosition){
-        Vector3 point = Vector3.zero;
-        Vector3 pos;
-        foreach (var anchor in anchors)
-        {
-            var d = Vector3.Distance(spawnPosition, anchor.transform.position);
-            if (d < distance) 
-            {
-            distance = d;
-            point = anchor.transform.position;
-            }
-            pos = new Vector3 (Random.Range(point.x * anchor.localScale.x, point.x), point.y, Random.Range(point.z * anchor.localScale.x, point.z));
-
-            frame.transform.position = distance > Snapdistance ?? spawnPosition : pos; 
-
-        }*/
