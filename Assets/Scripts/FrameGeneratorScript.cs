@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine;
 
 
 //Class detailing the rectangle for each hiddenWall - move to its own file
@@ -21,6 +20,7 @@ public class FrameGeneratorScript : MonoBehaviour{
 
     public GameObject frameTemplate;
     public List<GameObject> frameList = new List<GameObject>();
+    public GameObject cameraMan;
 
     [SerializeField]
     public int distanceBetween;
@@ -48,6 +48,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             for (var j = 0; j < numOfPhotos; j++){
                 var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wall.transform.position.y), Quaternion.identity);
                 newFrame.transform.eulerAngles = getRotation(wall);
+                newFrame.transform.LookAt(cameraMan);
                 this.frameList.Add(newFrame);
             };
 
@@ -67,7 +68,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             var lastFrame = frameList[i - 1].transform.position;
 
             var xPositions =  currentFrame.x - lastFrame.x;
-            var zPositions = currentFrame.z = lastFrame.z;
+            var zPositions = currentFrame.z - lastFrame.z;
 
             var distance = Mathf.Sqrt(Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
 
