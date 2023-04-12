@@ -16,6 +16,8 @@ public class ButtonHandler : MonoBehaviour
     private Button exitButton;
     private Label label;
 
+    public GameObject generatorDoc;
+
     private void Start() {
         FileBrowser.SetFilters(true, new FileBrowser.Filter( "Images", ".jpg", ".png" ));
     }
@@ -103,18 +105,26 @@ public class ButtonHandler : MonoBehaviour
             this.column2.Add(label);
         };
         VisualElement forwardArrow = new VisualElement();
+
         //USS is drawing the wrong background image probably because of fileID/guid issues
         forwardArrow.AddToClassList("forwardArrow");
         pagination.Add(forwardArrow);
 
         this.column2.Add(pagination);
+        generateFrames();
     }
 
-    public void SetUploadPhotoColumn(VisualElement uploadLabel, string photoPath){
+    private void SetUploadPhotoColumn(VisualElement uploadLabel, string photoPath){
         this.label = uploadLabel as Label;
 
         var splicedPhotoPath = Path.GetFileName(photoPath);
         this.label.text = $"Uploaded: {splicedPhotoPath}";
+    }
+
+    private void generateFrames() {
+
+        var frameGenerator = (FrameGeneratorScript) generatorDoc.GetComponent(typeof(FrameGeneratorScript));
+        frameGenerator.Generate(this.uploadedPhotoPaths);
     }
 }
 
