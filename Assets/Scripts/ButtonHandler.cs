@@ -111,7 +111,8 @@ public class ButtonHandler : MonoBehaviour
         pagination.Add(forwardArrow);
 
         this.column2.Add(pagination);
-        generateFrames();
+        List<GameObject> frameList = generateFrames();
+        assignImages(this.uploadedPhotoPaths, frameList);
     }
 
     private void SetUploadPhotoColumn(VisualElement uploadLabel, string photoPath){
@@ -129,12 +130,16 @@ public class ButtonHandler : MonoBehaviour
         for(int i = 0; i < paths.Length; i++){
             image = File.ReadAllBytes(paths[i]);
             ImageConversion.LoadImage(tex, image);
+            frameList[i].GetComponent<Renderer>().material = new Material(Shader.Find("Standard"));
             frameList[i].GetComponent<Renderer>().material.mainTexture = tex;
         };
-    private void generateFrames() {
+    }
+    private List<GameObject> generateFrames() {
 
         var frameGenerator = (FrameGeneratorScript) generatorDoc.GetComponent(typeof(FrameGeneratorScript));
         frameGenerator.Generate(this.uploadedPhotoPaths);
+
+        return frameGenerator.getFrameList();
     }
 }
 
