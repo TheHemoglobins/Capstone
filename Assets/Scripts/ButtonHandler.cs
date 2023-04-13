@@ -124,10 +124,10 @@ public class ButtonHandler : MonoBehaviour
 
     public void assignImages(string[] paths, List<GameObject> frameList){
 
-        Texture2D tex = new Texture2D(2, 2);
         byte[] image;
 
         for(int i = 0; i < paths.Length; i++){
+            Texture2D tex = new Texture2D(2, 2);
             image = File.ReadAllBytes(paths[i]);
             ImageConversion.LoadImage(tex, image);
             frameList[i].GetComponent<Renderer>().material = new Material(Shader.Find("Standard"));
