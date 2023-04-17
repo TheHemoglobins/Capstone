@@ -20,9 +20,7 @@ public class Anchor{
 public class FrameGeneratorScript : MonoBehaviour{
 
     public GameObject frameTemplate;
-    public GameObject lightTemplate;
     public List<GameObject> frameList = new List<GameObject>();
-    public List<GameObject> lightList = new List<GameObject>();
 
     [SerializeField]
     public int distanceBetween;
@@ -48,20 +46,15 @@ public class FrameGeneratorScript : MonoBehaviour{
 
             for (var j = 0; j < numOfPhotos; j++){
                 var newFrame = Instantiate(frameTemplate, generateFramePosition(anchorList[i], wall.transform.position.y), Quaternion.identity);
-                var newLight = Instantiate(lightTemplate, generateFramePosition(anchorList[i], wall.transform.position.y), Quaternion.identity);
-
                 newFrame.transform.eulerAngles = getRotation(wall);
-                newLight.transform.eulerAngles = getRotation(wall);
-
                 this.frameList.Add(newFrame);
-
             };
 
         };
-        fixFrameDistance(this.frameList, this.distanceBetween, this.anchorList, this.lightList);
+        fixFrameDistance(this.frameList, this.distanceBetween, this.anchorList);
     }
 
-    public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList, List<GameObject> lightList){
+    public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList){
         var rightFrameCorner = anchorList[0].cornerR.x;
         var leftFrameCorner = anchorList[0].cornerL.x;
 
@@ -73,7 +66,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             var lastFrame = frameList[i - 1].transform.position;
 
             var xPositions =  currentFrame.x - lastFrame.x;
-            var zPositions = currentFrame.z = lastFrame.z;
+            var zPositions = currentFrame.z - lastFrame.z;
 
             var distance = Mathf.Sqrt(Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
 
@@ -81,9 +74,6 @@ public class FrameGeneratorScript : MonoBehaviour{
                 currentFrame.x = currentFrame.x + distanceBetween + frameDistance;
                 currentFrame.z = currentFrame.z + distanceBetween + frameDistance;
             }
-
-            var photoPosition = frameList[i].transform.position;
-            lightList[i].transform.position = photoPosition;
         }
     }
 
