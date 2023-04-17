@@ -56,36 +56,33 @@ public class FrameGeneratorScript : MonoBehaviour{
     }
 
     public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList){
-    // 2 units distance between each frame
-    var rightFrameCorner = anchorList[0].cornerR.x;
-    var leftFrameCorner = anchorList[0].cornerL.x;
+        // 2 units distance between each frame
+        var rightFrameCorner = anchorList[0].cornerR.x;
+        var leftFrameCorner = anchorList[0].cornerL.x;
 
-    var frameDistance = Mathf.Abs(rightFrameCorner - leftFrameCorner);
+        var frameDistance = Mathf.Sqrt(Mathf.Pow(rightFrameCorner, 2) + Mathf.Pow(leftFrameCorner, 2));
 
-    for(var i = 1; i < frameList.Count(); i++){
+        for(var i = 1; i < frameList.Count(); i++){
 
-        var currentFrame = frameList[i].transform.position;
-        var lastFrame = frameList[i - 1].transform.position;
+            var currentFrame = frameList[i].transform.position;
+            var lastFrame = frameList[i - 1].transform.position;
 
-        var xPositions =  currentFrame.x - lastFrame.x;
-        var zPositions = currentFrame.z - lastFrame.z;
+            var xPositions =  currentFrame.x - lastFrame.x;
+            var zPositions = currentFrame.z - lastFrame.z;
 
-        var distance = Mathf.Sqrt(Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
+            var distance = Mathf.Sqrt(Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
 
-        var pos = currentFrame;
+            var pos = frameList[i].transform.position;
 
-        if (distance < distanceBetween){
-            if (xPositions < 0) {
-                pos.x = lastFrame.x - distanceBetween - frameDistance;
-            } else {
-                pos.x = lastFrame.x + distanceBetween + frameDistance;
+            if (distance < distanceBetween){
+                currentFrame.x = currentFrame.x + distanceBetween + frameDistance;
+                currentFrame.z = currentFrame.z + distanceBetween + frameDistance;
             }
-            pos.z = lastFrame.z;
-            frameList[i].transform.position = pos;
         }
     }
-}
 
+
+    
 
     
 
