@@ -20,7 +20,7 @@ public class FrameGeneratorScript : MonoBehaviour{
 
     public GameObject frameTemplate;
     public List<GameObject> frameList = new List<GameObject>();
-    public GameObject cameraMan;
+    //public GameObject cameraMan;
 
     [SerializeField]
     public int distanceBetween;
@@ -48,7 +48,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             for (var j = 0; j < numOfPhotos; j++){
                 var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wall.transform.position.y), Quaternion.identity);
                 newFrame.transform.eulerAngles = getRotation(wall);
-                newFrame.transform.LookAt(cameraMan.transform);
+               // newFrame.transform.LookAt(cameraMan.transform);
                 this.frameList.Add(newFrame);
             };
 
