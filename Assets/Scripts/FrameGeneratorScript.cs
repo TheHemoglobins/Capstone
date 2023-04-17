@@ -20,7 +20,9 @@ public class Anchor{
 public class FrameGeneratorScript : MonoBehaviour{
 
     public GameObject frameTemplate;
+    public GameObject lightTemplate;
     public List<GameObject> frameList = new List<GameObject>();
+    public List<GameObject> lightList = new List<GameObject>();
 
     [SerializeField]
     public int distanceBetween;
@@ -45,17 +47,21 @@ public class FrameGeneratorScript : MonoBehaviour{
             var wall = hiddenWalls[i];
 
             for (var j = 0; j < numOfPhotos; j++){
-                var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wall.transform.position.y), Quaternion.identity);
+                var newFrame = Instantiate(frameTemplate, generateFramePosition(anchorList[i], wall.transform.position.y), Quaternion.identity);
+                var newLight = Instantiate(lightTemplate, generateFramePosition(anchorList[i], wall.transform.position.y), Quaternion.identity);
+
                 newFrame.transform.eulerAngles = getRotation(wall);
+                newLight.transform.eulerAngles = getRotation(wall);
+
                 this.frameList.Add(newFrame);
+
             };
 
         };
-        fixFrameDistance(this.frameList, this.distanceBetween, this.anchorList);
-        
+        fixFrameDistance(this.frameList, this.distanceBetween, this.anchorList, this.lightList);
     }
 
-    public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList){
+    public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList, List<GameObject> lightList){
         var rightFrameCorner = anchorList[0].cornerR.x;
         var leftFrameCorner = anchorList[0].cornerL.x;
 
@@ -71,12 +77,13 @@ public class FrameGeneratorScript : MonoBehaviour{
 
             var distance = Mathf.Sqrt(Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
 
-            var pos = frameList[i].transform.position;
-
             if (distance < distanceBetween){
                 currentFrame.x = currentFrame.x + distanceBetween + frameDistance;
                 currentFrame.z = currentFrame.z + distanceBetween + frameDistance;
             }
+
+            var photoPosition = frameList[i].transform.position;
+            lightList[i].transform.position = photoPosition;
         }
     }
 
@@ -90,7 +97,7 @@ public class FrameGeneratorScript : MonoBehaviour{
         return (new Vector3(rotation.x, rotation.y, rotation.z)); 
     }
 
-    public Vector3 generateFramePos(Anchor anchor, float wall){
+    public Vector3 generateFramePosition(Anchor anchor, float wall){
         return new Vector3(
             Random.Range(anchor.cornerR.x, anchor.cornerL.x),
             wall,
