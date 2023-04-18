@@ -40,7 +40,6 @@ public class FrameGeneratorScript : MonoBehaviour{
         };
 
         var numOfPhotos = hiddenWalls.Count() / paths.Length;
-        Debug.Log(numOfPhotos);
 
         for (var i = 0; i < hiddenWalls.Count(); i++){
             var wall = hiddenWalls[i];
@@ -54,6 +53,7 @@ public class FrameGeneratorScript : MonoBehaviour{
 
         };
         fixFrameDistance(this.frameList, this.distanceBetween, this.anchorList);
+        
     }
 
     public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList){
@@ -124,5 +124,9 @@ public class FrameGeneratorScript : MonoBehaviour{
         anchorWithCorners = new Anchor(bottomRightCorner, topLeftCorner);
 
         return anchorWithCorners;
+    }
+
+    public List<GameObject> getFrameList(){
+        return this.frameList;
     }
 }
