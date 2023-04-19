@@ -62,7 +62,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             for(int i = 0; i < remainder; i++){
                 var wall = ListOfWalls[i];
 
-                var newFrame = Instantiate(frameTemplate, generateFramePos(this.anchorList[i], wall.transform.position.y), Quaternion.identity);
+                var newFrame = Instantiate(frameTemplate, generateFramePosition(this.anchorList[i], wall.transform.position.y), Quaternion.identity);
                 newFrame.transform.eulerAngles = getRotation(wall);
                 this.frameList.Add(newFrame);
             }
