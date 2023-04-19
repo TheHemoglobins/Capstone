@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine;
-
+using Cinemachine;
 
 //Class detailing the rectangle for each hiddenWall - move to its own file
 public class Anchor{
@@ -21,6 +20,7 @@ public class FrameGeneratorScript : MonoBehaviour{
 
     public GameObject frameTemplate;
     public List<GameObject> frameList = new List<GameObject>();
+    //public GameObject cameraMan;
 
     [SerializeField]
     public int distanceBetween;
