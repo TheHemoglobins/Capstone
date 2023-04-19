@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+using Cinemachine;
 
 //Class detailing the rectangle for each hiddenWall - move to its own file
 public class Anchor{
@@ -47,7 +47,6 @@ public class FrameGeneratorScript : MonoBehaviour{
             for (var j = 0; j < numOfPhotos; j++){
                 var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wall.transform.position.y), Quaternion.identity);
                 newFrame.transform.eulerAngles = getRotation(wall);
-               // newFrame.transform.LookAt(cameraMan.transform);
                 this.frameList.Add(newFrame);
             };
 
