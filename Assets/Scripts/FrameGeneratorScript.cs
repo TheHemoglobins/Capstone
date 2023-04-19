@@ -39,7 +39,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             this.anchorList.Add(this.wallAnchor);
         };
 
-        var numOfPhotos = hiddenWalls.Count() / paths.Length;
+        var numOfPhotos = paths.Length / hiddenWalls.Count();
 
         for (var i = 0; i < hiddenWalls.Count(); i++){
             var wall = hiddenWalls[i];
@@ -51,7 +51,22 @@ public class FrameGeneratorScript : MonoBehaviour{
             };
 
         };
+        checkRemainderOfFrames(hiddenWalls, paths, this.frameList);
         fixFrameDistance(this.frameList, this.distanceBetween, this.anchorList);
+    }
+
+    public void checkRemainderOfFrames(Transform[] ListOfWalls, string[] ListOfPaths, List<GameObject> ListOfFrames){
+        var remainder = ListOfPaths.Length % ListOfWalls.Count();
+        
+        if(remainder != 0){
+            for(int i = 0; i < remainder; i++){
+                var wall = ListOfWalls[i];
+
+                var newFrame = Instantiate(frameTemplate, generateFramePosition(this.anchorList[i], wall.transform.position.y), Quaternion.identity);
+                newFrame.transform.eulerAngles = getRotation(wall);
+                this.frameList.Add(newFrame);
+            }
+        }
     }
 
     public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList){
