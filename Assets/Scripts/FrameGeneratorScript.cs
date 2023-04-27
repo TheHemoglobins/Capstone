@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine;
-
+using Cinemachine;
 
 //Class detailing the rectangle for each hiddenWall - move to its own file
 public class Anchor{
@@ -21,6 +20,7 @@ public class FrameGeneratorScript : MonoBehaviour{
 
     public GameObject frameTemplate;
     public List<GameObject> frameList = new List<GameObject>();
+    //public GameObject cameraMan;
 
     [SerializeField]
     public int distanceBetween;
@@ -39,20 +39,34 @@ public class FrameGeneratorScript : MonoBehaviour{
             this.anchorList.Add(this.wallAnchor);
         };
 
-        var numOfPhotos = hiddenWalls.Count() / paths.Length;
+        var numOfPhotos = paths.Length / hiddenWalls.Count();
 
         for (var i = 0; i < hiddenWalls.Count(); i++){
             var wall = hiddenWalls[i];
 
             for (var j = 0; j < numOfPhotos; j++){
-                var newFrame = Instantiate(frameTemplate, generateFramePos(anchorList[i], wall.transform.position.y), Quaternion.identity);
+                var newFrame = Instantiate(frameTemplate, generateFramePosition(anchorList[i], wall.transform.position.y), Quaternion.identity);
                 newFrame.transform.eulerAngles = getRotation(wall);
                 this.frameList.Add(newFrame);
             };
 
         };
+        checkRemainderOfFrames(hiddenWalls, paths, this.frameList);
         fixFrameDistance(this.frameList, this.distanceBetween, this.anchorList);
+    }
+
+    public void checkRemainderOfFrames(Transform[] ListOfWalls, string[] ListOfPaths, List<GameObject> ListOfFrames){
+        var remainder = ListOfPaths.Length % ListOfWalls.Count();
         
+        if(remainder != 0){
+            for(int i = 0; i < remainder; i++){
+                var wall = ListOfWalls[i];
+
+                var newFrame = Instantiate(frameTemplate, generateFramePosition(this.anchorList[i], wall.transform.position.y), Quaternion.identity);
+                newFrame.transform.eulerAngles = getRotation(wall);
+                this.frameList.Add(newFrame);
+            }
+        }
     }
 
     public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList){
@@ -71,8 +85,6 @@ public class FrameGeneratorScript : MonoBehaviour{
             var zPositions = currentFrame.z - lastFrame.z;
 
             var distance = Mathf.Sqrt(Mathf.Pow(xPositions, 2) + Mathf.Pow(zPositions, 2));
-
-            var pos = frameList[i].transform.position;
 
             if (distance < distanceBetween){
                 currentFrame.x = currentFrame.x + distanceBetween + frameDistance;
@@ -96,7 +108,7 @@ public class FrameGeneratorScript : MonoBehaviour{
         return (new Vector3(rotation.x, rotation.y, rotation.z)); 
     }
 
-    public Vector3 generateFramePos(Anchor anchor, float wall){
+    public Vector3 generateFramePosition(Anchor anchor, float wall){
         return new Vector3(
             Random.Range(anchor.cornerR.x, anchor.cornerL.x),
             wall,
