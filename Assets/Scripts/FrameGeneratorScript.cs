@@ -89,6 +89,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             if (distance < distanceBetween){
                 currentFrame.x = currentFrame.x + distanceBetween + frameDistance;
                 currentFrame.z = currentFrame.z + distanceBetween + frameDistance;
+                frameList[i].transform.position = currentFrame;
             }
         }
     }
