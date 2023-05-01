@@ -88,6 +88,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             if (distance < distanceBetween){
                 currentFrame.x = currentFrame.x + distanceBetween + frameDistance;
                 currentFrame.z = currentFrame.z + distanceBetween + frameDistance;
+                frameList[i].transform.position = currentFrame; //update the position of the current frame with the adjusted values
             }
         }
     }
@@ -140,4 +141,17 @@ public class FrameGeneratorScript : MonoBehaviour{
     public List<GameObject> getFrameList(){
         return this.frameList;
     }
+    
+    public void FrameSnap(Transform player, float maxDistance){ // maxDistance -- represents the max distance between the frames and the player
+    foreach (var frame in frameList)
+    {
+        var framePosition = frame.transform.position; // retrieves the position of the current frame --> assigns it to framePosition
+        var distanceToPlayer = Vector3.Distance(framePosition, player.position); //calculates the distance between the current frame and the player's position
+        if (distanceToPlayer > maxDistance) // checks if the distanceToPlayer exceeds the maxDistance 
+        {
+            var directionToPlayer = (player.position - framePosition).normalized; //Calculates the direction from the frame to the player by subtracting their positions and normalizing the result.
+            frame.transform.position = player.position - directionToPlayer * maxDistance; //adjusts the position of the frame to be at the maximum distance 
+        }
+    }
+    }   
 }
