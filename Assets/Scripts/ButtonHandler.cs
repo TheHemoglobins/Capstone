@@ -50,7 +50,7 @@ public class ButtonHandler : MonoBehaviour
         
         backArrow.AddToClassList("backArrow");
 
-        pagination.Add(backArrow);
+        //pagination.Add(backArrow);
         
         pagination.AddToClassList("pagination");
 
@@ -60,13 +60,15 @@ public class ButtonHandler : MonoBehaviour
     public void GeneratePagination(GroupBox pag, int n){
 
         Button pageButton = new Button();
-        pageButton.text = $"{n}";
+        //pageButton.text = $"{n}";
 
-        //Issues changing the page number to reflect 1 versus the number of interations
+        pageButton.text = n == 0 ? $"{0}" : $"{n-9}";
+
+ /*        //Issues changing the page number to reflect 1 versus the number of interations
         if(n > 0){
             pageButton.text = $"{n-3}";
         };
-
+ */
         pag.Add(pageButton);
 
     }
@@ -99,7 +101,7 @@ public class ButtonHandler : MonoBehaviour
             VisualElement label = GetLabel(root);
             labelList.Add(label);
             SetUploadPhotoColumn(labelList[i], uploadedPhotoPaths[i]);
-            if((i % 3) == 0){
+            if((i % 10) == 0){
                 GeneratePagination(pagination, i);
             }
             this.column2.Add(label);
@@ -108,7 +110,7 @@ public class ButtonHandler : MonoBehaviour
 
         //USS is drawing the wrong background image probably because of fileID/guid issues
         forwardArrow.AddToClassList("forwardArrow");
-        pagination.Add(forwardArrow);
+        //pagination.Add(forwardArrow);
 
         this.column2.Add(pagination);
         List<GameObject> frameList = generateFrames();
