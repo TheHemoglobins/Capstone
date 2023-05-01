@@ -70,6 +70,7 @@ public class FrameGeneratorScript : MonoBehaviour{
     }
 
     public void fixFrameDistance(List<GameObject> frameList, int distanceBetween, List<Anchor> anchorList){
+        // 2 units distance between each frame
         var rightFrameCorner = anchorList[0].cornerR.x;
         var leftFrameCorner = anchorList[0].cornerL.x;
 
@@ -92,6 +93,11 @@ public class FrameGeneratorScript : MonoBehaviour{
             }
         }
     }
+
+
+    
+
+    
 
     public Vector3 getRotation(Transform frame){
         var rotation = frame.transform.eulerAngles;
