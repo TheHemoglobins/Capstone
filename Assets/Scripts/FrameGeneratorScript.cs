@@ -89,7 +89,7 @@ public class FrameGeneratorScript : MonoBehaviour{
             if (distance < distanceBetween){
                 currentFrame.x = currentFrame.x + distanceBetween + frameDistance;
                 currentFrame.z = currentFrame.z + distanceBetween + frameDistance;
-                frameList[i].transform.position = currentFrame;
+                frameList[i].transform.position = currentFrame; //update the position of the current frame with the adjusted values
             }
         }
     }
@@ -147,4 +147,27 @@ public class FrameGeneratorScript : MonoBehaviour{
     public List<GameObject> getFrameList(){
         return this.frameList;
     }
+    
+    public void FrameSnap(Transform player, float maxDistance){ // maxDistance -- represents the max distance between the frames and the player
+    foreach (var frame in frameList)
+    {
+        var framePosition = frame.transform.position; // retrieves the position of the current frame --> assigns it to framePosition
+        var distanceToPlayer = Vector3.Distance(framePosition, player.position); //calculates the distance between the current frame and the player's position
+        if (distanceToPlayer > maxDistance) // checks if the distanceToPlayer exceeds the maxDistance
+        {
+            var directionToPlayer = (player.position - framePosition).normalized; //Calculates the direction from the frame to the player by subtracting their positions and normalizing the result.
+            framePosition = player.position - directionToPlayer * maxDistance; //adjusts the position of the frame to be at the maximum distance
+
+            // Check if the frame is behind the wall
+            var wallNormal = frame.GetComponent<Renderer>().bounds.center - frame.GetComponent<Renderer>().bounds.max; // Gets the normal vector of the wall.
+            var dotProduct = Vector3.Dot(wallNormal.normalized, directionToPlayer); // Calculates the dot product of the wall normal and the direction to the player.
+            if (dotProduct > 0) // If the dot product is positive, then the frame is behind the wall and its position should be adjusted to be in front of the wall.
+            {
+                framePosition += wallNormal.normalized * frame.GetComponent<Renderer>().bounds.size.magnitude;
+            }
+
+            frame.transform.position = framePosition; // Set the new position of the frame
+        }
+    }
+}
 }
